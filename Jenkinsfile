@@ -2,40 +2,42 @@ pipeline {
     agent any
 
     stages {
-         stage('Install Node.js and npm') {
+        stage('Checkout') {
+            steps {
+                // Checkout your source code from version control
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
             steps {
                 script {
+                    // Install Node.js and npm
                     sh 'sudo apt-get update'
                     sh 'sudo apt-get install -y nodejs'
                     sh 'sudo apt-get install -y npm'
+
+                    // Install project dependencies (adjust the command based on your project)
+                    sh 'npm install'
                 }
             }
         }
 
-       
         stage('Build') {
             steps {
-                // Build the React app
-                sh 'npm run build'
+                script {
+                    // Build your project (adjust the command based on your project)
+                    sh 'npm run build'
+                }
             }
         }
 
-        stage('Deploy') {
-            steps {
-                // Deploy the React app (customize based on your deployment strategy)
-                echo "deploy"
-            }
-        }
+        // Add more stages as needed (e.g., testing, deployment)
     }
 
     post {
-        success {
-            // Notify on success (you can customize this, e.g., send an email)
-            echo 'Build and deployment successful!'
-        }
-        failure {
-            // Notify on failure (you can customize this, e.g., send an email)
-            echo 'Build or deployment failed!'
+        always {
+            // Clean up or perform actions that should happen regardless of the build result
         }
     }
 }
