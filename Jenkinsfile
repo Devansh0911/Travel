@@ -1,41 +1,32 @@
 pipeline {
     agent any
-
+    
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-               
-                bat "npm install"
-           
+                // Checkout the code from your Git repository
+                git 'https://github.com/Devansh0911/Travel.git'
             }
         }
 
-        stage('Test') {
+        stage('Build and Deploy') {
             steps {
-              
-                echo 'Running tests...'
-             
-            }
-        }
+                // Install dependencies and build the React app
+                sh 'npm install'
+                sh 'npm run build'
 
-        stage('Deploy') {
-            steps {
-                
-                echo 'Deploying the application...'
-               
             }
         }
     }
 
     post {
         success {
-          
-            echo 'Pipeline completed successfully!'
+            // Notify on success (you can customize this, e.g., send an email)
+            echo 'Build and deployment successful!'
         }
-
         failure {
-           
-            echo 'Pipeline failed. Deployment unsuccessful.'
+            // Notify on failure (you can customize this, e.g., send an email)
+            echo 'Build or deployment failed!'
         }
     }
 }
