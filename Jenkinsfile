@@ -5,11 +5,12 @@ pipeline {
          args '-p 3000:3000'
       }
    }
-       stage('Build') {
-            steps {
+   stage{
+         stage('Build') {
+               steps {
                 // Build the React app
                 sh 'npm install'
-            }
-        }        
-   
+               }
+         }        
+   }
 }
