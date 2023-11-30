@@ -2,7 +2,15 @@ pipeline {
     agent any
 
     stages {
-        
+         stage('Install Node.js and npm') {
+            steps {
+                script {
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install -y nodejs'
+                    sh 'sudo apt-get install -y npm'
+                }
+            }
+        }
 
        
         stage('Build') {
