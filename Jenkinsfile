@@ -23,21 +23,15 @@ pipeline {
             }
         }
 
-        stage('Build') {
+       stage('Build') {
             steps {
-                script {
-                    // Build your project (adjust the command based on your project)
-                    sh 'npm run build'
-                }
+                // Build the React app
+                sh 'npm run build'
             }
         }
 
         // Add more stages as needed (e.g., testing, deployment)
     }
 
-    post {
-        always {
-            // Clean up or perform actions that should happen regardless of the build result
-        }
-    }
+   
 }
